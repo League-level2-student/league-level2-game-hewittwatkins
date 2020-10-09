@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 public class Quadro6561 {
@@ -18,10 +20,12 @@ public class Quadro6561 {
 	}
 	
 	public void setup() {
-		jf1.setSize(WIDTH, HEIGHT);
+		jf1.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		jf1.setVisible(true);
 		jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf1.add(gamePanel);
+		jf1.pack();
+		jf1.addKeyListener(gamePanel);
 	}
 	
 }
