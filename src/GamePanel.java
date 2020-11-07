@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     int currentState = MENU;
     Font titleFont;
     Timer frameDraw;
+    numSquare sq1 = new numSquare(0, 0, 50, 50);
 
     public GamePanel() {
         titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
 		g.drawString("GAME STATE", 200, 200);
+		sq1.draw(g);
 	}
 	
 	public void drawEndState(Graphics g) {
@@ -109,15 +111,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} 
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
+		    sq1.up();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 		    System.out.println("DOWN");
+		    sq1.down();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 		    System.out.println("LEFT");
+		    sq1.left();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 		    System.out.println("RIGHT");
+		    sq1.right();
 		}
 		
 	}
