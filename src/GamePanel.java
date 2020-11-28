@@ -18,14 +18,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     int currentState = MENU;
     Font titleFont;
     Timer frameDraw;
-    numSquare sq1 = new numSquare(0, 0, 50, 50);
+    NumSquare[][] board = new NumSquare[4][4];
 
     public GamePanel() {
         titleFont = new Font("Arial", Font.PLAIN, 48);
+        intializeBoard();
         frameDraw = new Timer(1000/60,this);
         frameDraw.start();
     }
-    
+		
+    		
 	@Override
 	public void paintComponent(Graphics g){
 		if(currentState == MENU){
@@ -66,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
 		g.drawString("GAME STATE", 200, 200);
-		sq1.draw(g);
+		drawBoard(g);
 	}
 	
 	public void drawEndState(Graphics g) {
@@ -100,6 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		// TODO Auto-generated method stub
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
@@ -109,6 +112,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    }
 		    
 		} 
+		/*
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
 		    sq1.up();
@@ -125,12 +129,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    System.out.println("RIGHT");
 		    sq1.right();
 		}
-		
+	*/	
 	}
+	
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void intializeBoard() {
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board[y].length; x++) {
+				board[y][x] = new NumSquare(x, y, 100, 100);
+			}
+		}
+	}
+	
+	public void drawBoard(Graphics g) {
+		// loops through 2d array to draw board
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board[y].length; x++) {
+				board[y][x].draw(g);
+			}
+		}
 	}
 }
