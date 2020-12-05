@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -92,6 +94,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		System.out.println("action");
 		repaint();
+		
 	}
 
 	@Override
@@ -112,24 +115,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    }
 		    
 		} 
-		/*
+		
 		if (e.getKeyCode()==KeyEvent.VK_UP) {
 		    System.out.println("UP");
-		    sq1.up();
+		    board = moveUp();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 		    System.out.println("DOWN");
-		    sq1.down();
+		    moveDown(); // change later to above
 		}
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 		    System.out.println("LEFT");
-		    sq1.left();
+		    moveLeft();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 		    System.out.println("RIGHT");
-		    sq1.right();
+		    moveRight();
 		}
-	*/	
+		
+		addRandom();
+
 	}
 	
 
@@ -155,4 +160,79 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 	}
+	
+	public void moveDown() {
+		for (int x = 0; x < (board.length); x++) {
+			for (int y = 0; y < (board.length - 1); y++) {
+				if (board[y][x].getValue() == board[y+1][x].getValue()) {
+					board[y+1][x].combineSquare(); 
+					board[y][x].clearSquare();
+				} else if (board[y+1][x].getValue() == 0) {
+					board[y+1][x].setValue(board[y][x].getValue());
+					board[y][x].clearSquare();
+				}
+			}
+		}
+	}
+	
+	public NumSquare[][] moveUp() {
+		NumSquare[][] newBoard = board;
+		for (int x = 0; x < (newBoard.length); x++) {
+			for (int y = newBoard.length - 1; y > 0; y--) {
+				if (newBoard[y][x].getValue() == newBoard[y-1][x].getValue()) {
+					newBoard[y-1][x].combineSquare(); 
+					newBoard[y][x].clearSquare();
+				} else if (newBoard[y-1][x].getValue() == 0) {
+					newBoard[y-1][x].setValue(newBoard[y][x].getValue());
+					newBoard[y][x].clearSquare();
+				}
+			}
+		}
+		
+		return newBoard;
+	}
+
+	public void moveRight() {
+		for (int y = 0; y < (board.length); y++) {
+			for (int x = 0; x < (board.length - 1); x++) {
+				if (board[y][x].getValue() == board[y][x+1].getValue()) {
+					board[y][x+1].combineSquare(); 
+					board[y][x].clearSquare();
+				} else if (board[y][x+1].getValue() == 0) {
+					board[y][x+1].setValue(board[y][x].getValue());
+					board[y][x].clearSquare();
+				}
+			}
+		}
+	}
+	
+	public void moveLeft() {
+		for (int y = 0; y < (board.length); y++) {
+			for (int x = board.length -1; x > 0; x--) {
+				if (board[y][x].getValue() == board[y][x-1].getValue()) {
+					board[y][x-1].combineSquare(); 
+					board[y][x].clearSquare();
+				} else if (board[y][x-1].getValue() == 0) {
+					board[y][x-1].setValue(board[y][x].getValue());
+					board[y][x].clearSquare();
+				}
+			}
+		}
+	}
+	
+	public void addRandom() {
+		ArrayList<NumSquare> blanks = new ArrayList<NumSquare>();
+		for (int y = 0; y < (board.length); y++) {
+			for (int x = 0; x < (board.length - 1); x++) {
+				if (board[y][x].getValue() == 0) {
+					blanks.add(board[y][x]);
+				}
+			}
+		}
+		
+		Random genRandom = new Random();
+		int num = genRandom.nextInt(blanks.size());
+		blanks.get(num).randomValue();
+	}
+	
 }

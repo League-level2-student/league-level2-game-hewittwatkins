@@ -19,9 +19,7 @@ public class NumSquare extends GameObject {
 		if (needImage) {
 		    loadImage ("rocket.png");
 		}
-		Random genRandom = new Random();
-		int num = genRandom.nextInt(3);
-		value = num+num;
+		randomValue();
 	}
 	
 	public void draw(Graphics g) {
@@ -38,6 +36,16 @@ public class NumSquare extends GameObject {
 	}
 	
 	// new real code
+	
+	public void randomValue() {
+		Random genRandom = new Random();
+		int num = genRandom.nextInt(3);
+		value = num+num;
+	}
+	
+	public int getValue() {
+		return value;
+	}
 	
 	public void combineSquare( ) {
 		value = value*2;
