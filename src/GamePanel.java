@@ -92,7 +92,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}else if(currentState == END){
 		    updateEndState();
 		}
-		System.out.println("action");
 		repaint();
 		
 	}
@@ -105,7 +104,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		boolean changedBoard = false;
 		// TODO Auto-generated method stub
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
@@ -114,25 +113,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		        currentState++;
 		    }
 		    
-		} 
-		
-		if (e.getKeyCode()==KeyEvent.VK_UP) {
-		    System.out.println("UP");
-		    board = moveUp();
+		} else {
+			if (e.getKeyCode()==KeyEvent.VK_UP) {
+				changedBoard = moveUp();
+			}
+			if (e.getKeyCode()==KeyEvent.VK_DOWN) {
+				changedBoard = moveDown();
+			}
+			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				changedBoard = moveRight();
+			}
+			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+				changedBoard = moveLeft();
+			}
+			if (changedBoard == false) {
+				System.out.println("game over");
+			}
 		}
-		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-		    System.out.println("DOWN");
-		    moveDown(); // change later to above
-		}
-		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-		    System.out.println("LEFT");
-		    moveLeft();
-		}
-		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
-		    System.out.println("RIGHT");
-		    moveRight();
-		}
-		
+
 		addRandom();
 
 	}
@@ -161,63 +159,80 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 	
-	public void moveDown() {
+	public boolean moveDown() {
+		boolean changedBoard = false;
 		for (int x = 0; x < (board.length); x++) {
 			for (int y = 0; y < (board.length - 1); y++) {
 				if (board[y][x].getValue() == board[y+1][x].getValue()) {
 					board[y+1][x].combineSquare(); 
 					board[y][x].clearSquare();
+					changedBoard = true;
 				} else if (board[y+1][x].getValue() == 0) {
 					board[y+1][x].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
-				}
-			}
-		}
-	}
-	
-	public NumSquare[][] moveUp() {
-		NumSquare[][] newBoard = board;
-		for (int x = 0; x < (newBoard.length); x++) {
-			for (int y = newBoard.length - 1; y > 0; y--) {
-				if (newBoard[y][x].getValue() == newBoard[y-1][x].getValue()) {
-					newBoard[y-1][x].combineSquare(); 
-					newBoard[y][x].clearSquare();
-				} else if (newBoard[y-1][x].getValue() == 0) {
-					newBoard[y-1][x].setValue(newBoard[y][x].getValue());
-					newBoard[y][x].clearSquare();
+					changedBoard = true;
 				}
 			}
 		}
 		
-		return newBoard;
+		return changedBoard;
+	}
+	
+	public boolean moveUp() {
+		boolean changedBoard = false;
+		for (int x = 0; x < (board.length); x++) {
+			for (int y = board.length - 1; y > 0; y--) {
+				if (board[y][x].getValue() == board[y-1][x].getValue()) {
+					board[y-1][x].combineSquare(); 
+					board[y][x].clearSquare();
+					changedBoard = true;
+				} else if (board[y-1][x].getValue() == 0) {
+					board[y-1][x].setValue(board[y][x].getValue());
+					board[y][x].clearSquare();
+					changedBoard = true;
+				}
+			}
+		}
+		
+		return changedBoard;
 	}
 
-	public void moveRight() {
+	public boolean moveRight() {
+		boolean changedBoard = false;
 		for (int y = 0; y < (board.length); y++) {
 			for (int x = 0; x < (board.length - 1); x++) {
 				if (board[y][x].getValue() == board[y][x+1].getValue()) {
 					board[y][x+1].combineSquare(); 
 					board[y][x].clearSquare();
+					changedBoard = true;
 				} else if (board[y][x+1].getValue() == 0) {
 					board[y][x+1].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
+					changedBoard = true;
 				}
 			}
 		}
+		
+		return changedBoard;
 	}
 	
-	public void moveLeft() {
+	public boolean moveLeft() {
+		boolean changedBoard = false;
 		for (int y = 0; y < (board.length); y++) {
 			for (int x = board.length -1; x > 0; x--) {
 				if (board[y][x].getValue() == board[y][x-1].getValue()) {
 					board[y][x-1].combineSquare(); 
 					board[y][x].clearSquare();
+					changedBoard = true;
 				} else if (board[y][x-1].getValue() == 0) {
 					board[y][x-1].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
+					changedBoard = true;
 				}
 			}
 		}
+		
+		return changedBoard;
 	}
 	
 	public void addRandom() {
@@ -229,10 +244,44 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 		}
-		
-		Random genRandom = new Random();
-		int num = genRandom.nextInt(blanks.size());
-		blanks.get(num).randomValue();
+		if (blanks.size() > 0) {
+			Random genRandom = new Random();
+			int num = genRandom.nextInt(blanks.size());
+			blanks.get(num).randomValue();
+		}
 	}
 	
-}
+	/*public boolean checkBoard(KeyEvent e) {
+		boolean gamePlay = false;
+		if (e.getKeyCode()==KeyEvent.VK_UP) {
+		    System.out.println("UP");
+		    boolean newBoard = moveLeft();//moveUp();
+		    if (newBoard == true) {
+		    	gamePlay = true;
+		    }
+		}
+		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
+		    System.out.println("DOWN");
+		    boolean newBoard = moveLeft();//moveDown();
+		    if (newBoard == true) {
+		    	gamePlay = true;
+		    }
+		}
+		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+		    System.out.println("LEFT");
+		    boolean newBoard = moveLeft();
+		    if (newBoard == true) {
+		    	gamePlay = true;
+		    }
+		}
+		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+		    System.out.println("RIGHT");
+		    boolean newBoard = moveRight();
+		    if (newBoard == true) {
+		    	gamePlay = true;
+		    }
+		}
+		return gamePlay;
+	} */
+	
+} 
