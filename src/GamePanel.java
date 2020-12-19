@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     NumSquare[][] board = new NumSquare[4][4];
 
     public GamePanel() {
-        titleFont = new Font("Arial", Font.PLAIN, 48);
+        titleFont = new Font("Arial", Font.PLAIN, 30);
         intializeBoard();
         frameDraw = new Timer(1000/60,this);
         frameDraw.start();
@@ -55,21 +55,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void drawMenuState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
 		g.setFont(titleFont);
-		g.setColor(Color.GREEN);
-		g.drawString("start", 200, 200);
+		g.setColor(Color.WHITE);
+		g.drawString("2048 - With a Few Twists", 200, 200);
 		
 		
 	}
 	
 	public void drawGameState(Graphics g) {
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
-		g.drawString("GAME STATE", 200, 200);
+		//g.drawString("GAME STATE", 200, 200);
 		drawBoard(g);
 	}
 	
@@ -145,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void intializeBoard() {
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[y].length; x++) {
-				board[y][x] = new NumSquare(x, y, 100, 100);
+				board[y][x] = new NumSquare(x, y, Quadro6561.WIDTH / 4, (Quadro6561.HEIGHT-24) / 4);
 			}
 		}
 	}
@@ -154,7 +154,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// loops through 2d array to draw board
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[y].length; x++) {
-				board[y][x].draw(g);
+				if (board[y][x].getValue() != 0) {
+					board[y][x].draw(g);
+				}
 			}
 		}
 	}

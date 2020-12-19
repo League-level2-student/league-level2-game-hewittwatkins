@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 public class Quadro6561 {
 	
 	JFrame jf1;
-	static final int WIDTH = 500;
-	static final int HEIGHT = 500;
+	static final int WIDTH = 800;
+	static final int HEIGHT = 800;
 	GamePanel gamePanel;
 
 	public static void main(String[] args) {

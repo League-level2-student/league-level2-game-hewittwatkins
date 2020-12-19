@@ -11,6 +11,13 @@ public class NumSquare extends GameObject {
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 	public int value = 0;
+	public Color twoC = new Color(0, 255, 155);
+	public Color fourC = new Color(0, 255, 255);
+	public Color eightC = new Color(0, 155, 255);
+	public Color sixteenC = new Color(0, 55, 255);
+	public Color thrityTwoC = new Color(0, 0, 255);
+	public Color sixtyFourC = new Color(0, 0, 155);
+	public Color largeC = new Color(0, 0, 55);
 
 	public NumSquare (int X, int Y, int W, int H) {
 		super(X, Y, W, H);
@@ -23,16 +30,13 @@ public class NumSquare extends GameObject {
 	}
 	
 	public void draw(Graphics g) {
-		if (gotImage) {
-			g.drawImage(image, x*width, y*height, width, height, null);
-		} else {
-			g.setColor(Color.BLUE);
-			g.fillRect(x*width, y*height, width, height);
-			g.setColor(Color.ORANGE);
-			g.drawRect(x*width, y*height, width, height);
-			g.setColor(Color.WHITE);
-			g.drawString(value+"", x*width, y*height+height);
-		}
+		
+		g.setColor(twoC);
+		g.fillRect(x*width, y*height, width, height);
+		g.setColor(Color.ORANGE);
+		g.drawRect(x*width, y*height, width, height);
+		g.setColor(Color.WHITE);
+		g.drawString(value+"", (x*width) + (width/2), (y*height) + (height/2));
 	}
 	
 	// new real code
@@ -57,26 +61,6 @@ public class NumSquare extends GameObject {
 	
 	public void setValue(int num) {
 		value = num;
-	}
-	
-	
-	// new suedo code sort of stuff
-	
-	public void drawBoard() {
-		
-	}
-	
-	public void checkBoard() {
-		
-	}
-	
-	
-	public void addNewNum() {
-		
-	}
-	
-	public void updateBoard() {
-		
 	}
 	
 	// code for og 
