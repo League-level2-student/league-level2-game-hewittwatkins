@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -11,14 +12,8 @@ public class NumSquare extends GameObject {
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 	public int value = 0;
-	public Color twoC = new Color(0, 255, 155);
-	public Color fourC = new Color(0, 255, 255);
-	public Color eightC = new Color(0, 155, 255);
-	public Color sixteenC = new Color(0, 55, 255);
-	public Color thrityTwoC = new Color(0, 0, 255);
-	public Color sixtyFourC = new Color(0, 0, 155);
-	public Color largeC = new Color(0, 0, 55);
-
+	public HashMap <Integer, Color> colors = new HashMap<Integer, Color>();
+	
 	public NumSquare (int X, int Y, int W, int H) {
 		super(X, Y, W, H);
 		speed = 20;
@@ -27,11 +22,21 @@ public class NumSquare extends GameObject {
 		    loadImage ("rocket.png");
 		}
 		randomValue();
+		colors.put(2, new Color(0, 255, 155));
+		colors.put(4, new Color(0, 255, 255));
+		colors.put(8, new Color(0, 155, 255));
+		colors.put(16, new Color(0, 55, 25));
+		colors.put(32, new Color(0, 0, 255));
+		colors.put(64, new Color(0, 0, 155));
+		colors.put(128, new Color(0, 0, 55));
 	}
 	
 	public void draw(Graphics g) {
-		
-		g.setColor(twoC);
+		if (value >= 128) {
+			g.setColor(colors.get(128));
+		} else {
+			g.setColor(colors.get(value));
+		}
 		g.fillRect(x*width, y*height, width, height);
 		g.setColor(Color.ORANGE);
 		g.drawRect(x*width, y*height, width, height);

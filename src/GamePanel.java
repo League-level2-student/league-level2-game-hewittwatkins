@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     Font titleFont;
     Timer frameDraw;
     NumSquare[][] board = new NumSquare[4][4];
+    int gamesLost = 0;
 
     public GamePanel() {
         titleFont = new Font("Arial", Font.PLAIN, 30);
@@ -128,10 +129,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			if (changedBoard == false) {
 				System.out.println("game over");
+				gamesLost++;
+				System.out.println(gamesLost);
 			}
 		}
-
-		addRandom();
+		if (gamesLost == 3) {
+			currentState++;
+		} else {
+			addRandom();
+		}
+		
+		if (currentState == END) {
+			intializeBoard();
+		}
 
 	}
 	
