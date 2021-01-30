@@ -141,6 +141,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (currentState == END) {
 			intializeBoard();
+			gamesLost = 0;
 		}
 
 	}
@@ -175,14 +176,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		boolean changedBoard = false;
 		for (int x = 0; x < (board.length); x++) {
 			for (int y = 0; y < (board.length - 1); y++) {
-				if (board[y][x].getValue() == board[y+1][x].getValue()) {
-					board[y+1][x].combineSquare(); 
+				if (board[y][x].getValue() == board[y+1][x].getValue()) { // don't want to check for zeros
+					board[y+1][x].combineSquare();
+					if (board[y][x].getValue() != 0) {
+						changedBoard = true;
+					}
 					board[y][x].clearSquare();
-					changedBoard = true;
+					
 				} else if (board[y+1][x].getValue() == 0) {
 					board[y+1][x].setValue(board[y][x].getValue());
+					if (board[y][x].getValue() != 0) {
+						changedBoard = true;
+					}
 					board[y][x].clearSquare();
-					changedBoard = true;
+					
+					
 				}
 			}
 		}
@@ -194,11 +202,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		boolean changedBoard = false;
 		for (int x = 0; x < (board.length); x++) {
 			for (int y = board.length - 1; y > 0; y--) {
-				if (board[y][x].getValue() == board[y-1][x].getValue()) {
+				if (board[y][x].getValue() == board[y-1][x].getValue() && board[y][x].getValue() != 0) {
 					board[y-1][x].combineSquare(); 
 					board[y][x].clearSquare();
 					changedBoard = true;
-				} else if (board[y-1][x].getValue() == 0) {
+					
+				} else if (board[y-1][x].getValue() == 0 && board[y][x].getValue() != 0) {
 					board[y-1][x].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
 					changedBoard = true;
@@ -213,14 +222,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		boolean changedBoard = false;
 		for (int y = 0; y < (board.length); y++) {
 			for (int x = 0; x < (board.length - 1); x++) {
-				if (board[y][x].getValue() == board[y][x+1].getValue()) {
+				if (board[y][x].getValue() == board[y][x+1].getValue() && board[y][x].getValue() != 0) {
 					board[y][x+1].combineSquare(); 
 					board[y][x].clearSquare();
 					changedBoard = true;
-				} else if (board[y][x+1].getValue() == 0) {
+					
+				} else if (board[y][x+1].getValue() == 0 && board[y][x].getValue() != 0) {
 					board[y][x+1].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
 					changedBoard = true;
+					
 				}
 			}
 		}
@@ -232,14 +243,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		boolean changedBoard = false;
 		for (int y = 0; y < (board.length); y++) {
 			for (int x = board.length -1; x > 0; x--) {
-				if (board[y][x].getValue() == board[y][x-1].getValue()) {
+				if (board[y][x].getValue() == board[y][x-1].getValue() && board[y][x].getValue() != 0) {
 					board[y][x-1].combineSquare(); 
 					board[y][x].clearSquare();
 					changedBoard = true;
-				} else if (board[y][x-1].getValue() == 0) {
+					
+				} else if (board[y][x-1].getValue() == 0 && board[y][x].getValue() != 0) {
 					board[y][x-1].setValue(board[y][x].getValue());
 					board[y][x].clearSquare();
 					changedBoard = true;
+					
 				}
 			}
 		}
