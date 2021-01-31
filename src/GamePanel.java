@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawImage(image1, 0, 0, 800, 800, null);
 		} else {
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
+			g.fillRect(0, 0, Better2048.WIDTH, Better2048.HEIGHT);
 			g.setFont(titleFont);
 			g.setColor(Color.WHITE);
 			g.drawString("2048 - With a Few Twists", 200, 200);
@@ -90,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
+		g.fillRect(0, 0, Better2048.WIDTH, Better2048.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
 		//g.drawString("GAME STATE", 200, 200);
@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawImage(image2, 0, 0, 800, 800, null);
 		} else {
 			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
+			g.fillRect(0, 0, Better2048.WIDTH, Better2048.HEIGHT);
 			g.setFont(titleFont);
 			g.setColor(Color.BLUE);
 			g.drawString("END STATE", 200, 200);
@@ -183,7 +183,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void intializeBoard() {
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[y].length; x++) {
-				board[y][x] = new NumSquare(x, y, Quadro6561.WIDTH / 4, (Quadro6561.HEIGHT-24) / 4);
+				board[y][x] = new NumSquare(x, y, Better2048.WIDTH / 4, (Better2048.HEIGHT-24) / 4);
 			}
 		}
 	}

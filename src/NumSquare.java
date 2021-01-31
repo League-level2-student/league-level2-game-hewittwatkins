@@ -71,7 +71,7 @@ public class NumSquare extends GameObject {
 	// code for og 
 	
 	public void right() {
-        if (x < (Quadro6561.WIDTH - width))
+        if (x < (Better2048.WIDTH - width))
         	x+=speed;
     }
 	
@@ -86,7 +86,7 @@ public class NumSquare extends GameObject {
     }
 	
 	public void down() {
-		if (y < (Quadro6561.HEIGHT - height - 23))
+		if (y < (Better2048.HEIGHT - height - 23))
 			y+=speed;
     }
 	

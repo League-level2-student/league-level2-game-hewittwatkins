@@ -2,7 +2,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-public class Quadro6561 {
+public class Better2048 {
 	
 	JFrame jf1;
 	static final int WIDTH = 800;
@@ -10,11 +10,11 @@ public class Quadro6561 {
 	GamePanel gamePanel;
 
 	public static void main(String[] args) {
-		Quadro6561 quadro = new Quadro6561();
+		Better2048 quadro = new Better2048();
 		quadro.setup();
 	}
 	
-	public Quadro6561() {
+	public Better2048() {
 		jf1 = new JFrame();
 		gamePanel = new GamePanel();
 	}
