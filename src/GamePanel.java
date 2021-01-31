@@ -5,11 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.Timer;
-
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -22,12 +23,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     Timer frameDraw;
     NumSquare[][] board = new NumSquare[4][4];
     int gamesLost = 0;
+    public static BufferedImage image1;
+    public static BufferedImage image2;	
 
     public GamePanel() {
         titleFont = new Font("Arial", Font.PLAIN, 30);
         intializeBoard();
         frameDraw = new Timer(1000/60,this);
         frameDraw.start();
+        image1 =loadImage ("2048HSv3.jpg");
+        image2 =loadImage ("endState.jpg");
+  
     }
 		
     		
@@ -56,13 +62,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void drawMenuState(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
-		g.setFont(titleFont);
-		g.setColor(Color.WHITE);
-		g.drawString("2048 - With a Few Twists", 200, 200);
+		if (image1 != null) {
+			g.drawImage(image1, 0, 0, 800, 800, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
+			g.setFont(titleFont);
+			g.setColor(Color.WHITE);
+			g.drawString("2048 - With a Few Twists", 200, 200);
+		}
 		
+	}
+	
+	BufferedImage loadImage(String imageFile) {
+	    BufferedImage bufferedImage;
 		
+        try {
+            bufferedImage = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+            return bufferedImage;
+	   
+        } catch (Exception e) {
+            
+        }
+        return null;
+    	
 	}
 	
 	public void drawGameState(Graphics g) {
@@ -75,11 +98,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void drawEndState(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
-		g.setFont(titleFont);
-		g.setColor(Color.BLUE);
-		g.drawString("END STATE", 200, 200);
+		if (image2 != null) {
+			g.drawImage(image2, 0, 0, 800, 800, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Quadro6561.WIDTH, Quadro6561.HEIGHT);
+			g.setFont(titleFont);
+			g.setColor(Color.BLUE);
+			g.drawString("END STATE", 200, 200);
+		}
 	}
 
 	@Override
@@ -133,7 +160,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				System.out.println(gamesLost);
 			}
 		}
-		if (gamesLost == 3) {
+		if (gamesLost == 1) {
 			currentState++;
 		} else {
 			addRandom();
